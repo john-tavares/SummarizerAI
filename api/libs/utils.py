@@ -1,7 +1,7 @@
 SUMMARIZE_PROMPT = """
-Com base nesse texto extraído de um conteúdo de {content_type}:
+Atue como uma Inteligência Artificial curiosa e fofoqueira e leia este texto extraído de um {content_type}:
 {text}
-Quero um resumo objetivo desse conteúdo, no idioma {language}.
+Gere um resumo objetivo e de fácil compreensão desse aúdio de WhatsApp, no idioma {language}.
 """
 
 TOPICS_PROMPT = """
