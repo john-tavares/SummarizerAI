@@ -1,5 +1,5 @@
 import openai
-import libs.utils
+import api.libs.utils as utils
 
 def summarize(api_key:str, action:str, text:str, content_type:str, language:str="pt-BR"):
     openai.api_key = api_key
