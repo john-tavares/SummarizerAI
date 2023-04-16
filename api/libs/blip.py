@@ -8,7 +8,7 @@ CONTENT_ERRO = "Tivemos um problema!\n\nInfelizmente não consegui processar ess
 def send_message(api_key:str, action:str, reciver_id:str, text:str):
     url = f"{HOST}/messages"
     if action == "success":
-        message = CONTENT_SUCCESS.format(text)
+        message = CONTENT_SUCCESS.format(text=text)
     else:
         message = CONTENT_ERRO
 
