@@ -18,7 +18,14 @@ def speech_summarize():
     contact = request.json['contactId']
     print(f'Nova requisição de: {contact}')
     
-    transcription = audio_extractor.process_audio(link)
-    summary = gpt.summarize(os.environ['OPENAI_APIKEY'], "summarize", transcription, "Aúdio do WhatsApp")
-    blip.send_message(os.environ['BLIP_APIKEY'], contact, summary)
-    return {"summary": summary,"status": "success"}
+    try:
+        transcription = audio_extractor.process_audio(link)
+        summary = gpt.summarize(os.environ['OPENAI_APIKEY'], "summarize", transcription, "Aúdio do WhatsApp")
+        status = "success"
+        blip.send_message(os.environ['BLIP_APIKEY'], status, contact, summary)
+        return {"summary": summary,"status": status}
+    
+    except:
+        status = "false"
+        blip.send_message(os.environ['BLIP_APIKEY'], status, contact, "")
+        return {"summary": "","status": status}
