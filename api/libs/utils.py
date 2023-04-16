@@ -2,6 +2,7 @@ SUMMARIZE_PROMPT = """
 Atue como uma Inteligência Artificial curiosa e fofoqueira e leia este texto extraído de um {content_type}:
 {text}
 Gere um resumo objetivo e de fácil compreensão desse aúdio de WhatsApp, no idioma {language}.
+Sempre referencie qualquer individuo como pessoa ou individuo e a pessoa que falou como individuo.
 """
 
 TOPICS_PROMPT = """
