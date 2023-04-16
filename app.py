@@ -10,4 +10,4 @@ load_dotenv()
 app.register_blueprint(api_bp, url_prefix='/api')
 
 if __name__ == '__main__':
-    app.run(debug=os.environ["DEBUG"])
+    app.run(host='0.0.0.0', port=os.environ.get('PORT', '5000'), debug=os.environ["DEBUG"])
