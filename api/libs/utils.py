@@ -5,17 +5,21 @@ Gere um resumo objetivo e de fácil compreensão desse aúdio de WhatsApp, no id
 Sempre referencie qualquer individuo como pessoa ou individuo e a pessoa que falou como individuo.
 """
 
-TOPICS_PROMPT = """
-Com base nesse texto extraído de um conteúdo de {content_type}:
-{text}
-Quero um resumo em tópicos desse conteúdo, no idioma {language}.
+YOUTUBE_PROMPT = """
+Resuma este vídeo do Youtube:
+
+Title: {video_title}
+Channel: {video_channel}
+Legenda: {video_caption}
 """
 
 def generate_prompt(action:str, text:str, content_type:str, language:str="english")->str:
     if action == "summarize":
         base_prompt = SUMMARIZE_PROMPT
-    elif action == "topics":
-        base_prompt = TOPICS_PROMPT
-    
+
     prompt = base_prompt.format(content_type=content_type, text=text, language=language)
+    return prompt
+
+def generate_youtube_prompt(video:dict)->str:
+    prompt = YOUTUBE_PROMPT.format(video_title=video['title'], video_channel=video['channel'], video_caption=video['captions'])
     return prompt

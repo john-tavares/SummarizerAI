@@ -14,3 +14,13 @@ def summarize(api_key:str, action:str, text:str, content_type:str, language:str=
     )
 
     return response["choices"][0]["text"]
+
+def summarize_youtube(api_key:str, video:dict):
+    openai.api_key = api_key
+    prompt = utils.generate_youtube_prompt(video)
+    response = openai.ChatCompletion.create(
+        model='gpt-3.5-turbo',
+        messages=[{"role": "user", "content": prompt}],
+    )
+
+    return "\n"+response["choices"][0]['message']['content']
