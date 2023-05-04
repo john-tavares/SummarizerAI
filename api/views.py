@@ -3,6 +3,7 @@ import api.extractors.audio as audio_extractor
 import api.extractors.youtube as youtube_extractor
 import api.extractors.pdf as pdf_extractor
 import api.extractors.page as page_extractor
+import api.extractors.chat as chat_extractor
 import api.libs.gpt as gpt
 import api.libs.blip as blip
 import os
@@ -82,3 +83,11 @@ def page_summarize():
         status = "false"
         blip.send_message(os.environ['BLIP_APIKEY'], status, contact, "")
         return {"summary": "","status": status}
+    
+@api_bp.route('/chat/continue', methods=['POST'])
+def chat_continue():
+    receiver_id = request.json['contactId']
+    messages = blip.last_messages("Key c29waGlhdGVzdGVzOk9WMGloSkFmWExuUHloblk3Tkc4", receiver_id)['resource']['items'][0:10]
+    gpt_messages = chat_extractor.transcribe(messages)
+    response = gpt.chat(os.environ['OPENAI_APIKEY'], gpt_messages)
+    return {"response": response,"status": "success"}

@@ -20,3 +20,14 @@ def send_message(api_key:str, action:str, reciver_id:str, text:str):
     }
     response = requests.post(url, headers={"Authorization": api_key}, json=payload)
     return response
+
+def last_messages(api_key:str, reciver_id:str):
+    url = f"{HOST}/commands"
+
+    payload = {  
+        "id": "1234",
+        "method": "get",
+        "uri": f"/threads/{reciver_id}?refreshExpiredMedia=true"
+    }
+    response = requests.post(url, headers={"Authorization": api_key}, json=payload).json()
+    return response
