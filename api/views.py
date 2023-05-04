@@ -87,7 +87,7 @@ def page_summarize():
 @api_bp.route('/chat/continue', methods=['POST'])
 def chat_continue():
     receiver_id = request.json['contactId']
-    messages = blip.last_messages("Key c29waGlhdGVzdGVzOk9WMGloSkFmWExuUHloblk3Tkc4", receiver_id)['resource']['items'][0:10]
+    messages = blip.last_messages("Key c29waGlhdGVzdGVzOk9WMGloSkFmWExuUHloblk3Tkc4", receiver_id)['resource']['items'][0:30]
     gpt_messages = chat_extractor.transcribe(messages)
     response = gpt.chat(os.environ['OPENAI_APIKEY'], gpt_messages)
     return {"response": response,"status": "success"}
