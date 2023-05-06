@@ -9,7 +9,8 @@ def transcribe(messages:list):
             role = "assistant"
         else:
             role = "user"
-        gpt_message = {"role": role, "content": message['content']}
+        content = message['content'] if message['type'] == "text/plain" else f"<Conteúdo {message['content']['type']}>"
+        gpt_message = {"role": role, "content": content}
         gpt_messages.append(gpt_message)
         tokens = utils.num_tokens_from_messages(gpt_messages)
         if tokens > 4096:
