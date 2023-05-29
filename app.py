@@ -2,7 +2,10 @@ from flask import Flask
 from dotenv import load_dotenv
 from api.views import api_bp
 import os
+import sys
 
+# Add configuration for the application
+sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 app = Flask(__name__)
 load_dotenv()
 

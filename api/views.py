@@ -1,5 +1,5 @@
 from flask import request, Blueprint
-import api.extractors.audio as audio_extractor
+from api.extractors.audio import AudioExtractor
 import api.extractors.youtube as youtube_extractor
 import api.extractors.pdf as pdf_extractor
 import api.libs.gpt as gpt
@@ -8,19 +8,28 @@ import os
 
 api_bp = Blueprint('api', __name__)
 
-@api_bp.route('/speechToText', methods=['POST'])
-def speech_to_text():
-    link = request.json['audioUrl']
-    transcription = audio_extractor.process_audio(link)
+@api_bp.route('/transcribe', methods=['POST'])
+def transcribe():
+    url = request.json['fileUrl']
+    file_type = request.json['fileType']
+    
+    if 'audio' in file_type:
+        file = AudioExtractor(url, file_type)
+
+    transcription = file.transcribe()
     return {"transcription": transcription,"status": "success"}
 
-@api_bp.route('/speechSummarize', methods=['POST'])
+@api_bp.route('/summary', methods=['POST'])
 def speech_summarize():
-    link = request.json['audioUrl']
+    url = request.json['fileUrl']
+    file_type = request.json['fileType']
     contact = request.json['contactId']
     
     try:
-        transcription = audio_extractor.process_audio(link)
+        if 'audio' in file_type:
+            file = AudioExtractor(url, file_type)
+        
+        transcription = file.transcribe()
         summary = gpt.summarize(os.environ['OPENAI_APIKEY'], "summarize", transcription, "Aúdio do WhatsApp")
         status = "success"
         blip.send_message(os.environ['BLIP_APIKEY'], status, contact, summary)
