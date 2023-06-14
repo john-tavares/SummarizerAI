@@ -2,8 +2,8 @@ from flask import request, Blueprint
 from api.extractors.audio import AudioExtractor
 import api.extractors.youtube as youtube_extractor
 import api.extractors.pdf as pdf_extractor
-import api.libs.gpt as gpt
-import api.libs.blip as blip
+import libs.gpt as gpt
+import libs.blip as blip
 import os
 
 api_bp = Blueprint('api', __name__)

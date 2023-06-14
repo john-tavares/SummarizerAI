@@ -2,7 +2,7 @@ import PyPDF2
 import requests
 import tempfile
 import os
-import api.libs.utils as utils
+import libs.utils as utils
 
 def download(link):
     response = requests.get(link)
