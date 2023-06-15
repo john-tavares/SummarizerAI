@@ -88,3 +88,21 @@ def last_messages(api_key:str, reciver_id:str):
     }
     response = requests.post(url, headers={"Authorization": api_key}, json=payload).json()
     return response
+
+
+def create_event(api_key:str, reciver_id:str, action:str):
+    url = f"{HOST}/commands"
+
+    payload = {
+        "id": "{{$guid}}",
+        "to": "postmaster@analytics.msging.net",
+        "method": "set",
+        "type": "application/vnd.iris.eventTrack+json",
+        "uri": "/event-track",
+        "resource": {
+            "category": f"{reciver_id}_eventTrack",
+            "action": action
+        }
+    }
+    response = requests.post(url, headers={"Authorization": api_key}, json=payload).json()
+    return response

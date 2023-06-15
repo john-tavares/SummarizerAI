@@ -81,4 +81,6 @@ def chat_continue():
     messages = blip.last_messages(os.environ['BLIP_APIKEY'], receiver_id)['resource']['items'][0:3]
     gpt_messages = chat_extractor.transcribe(messages)
     response = gpt.chat(os.environ['OPENAI_APIKEY'], gpt_messages)
+    response_blip = blip.create_event(os.environ['BLIP_APIKEY'], receiver_id, "chat")
+    print(response_blip)
     return {"response": response,"status": "success"}
