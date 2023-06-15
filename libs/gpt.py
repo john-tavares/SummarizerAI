@@ -33,3 +33,12 @@ def summarize_pdf(api_key:str, messages:list):
     )
 
     return "\n"+response["choices"][0]['message']['content']
+
+def chat(api_key:str, messages:list):
+    openai.api_key = api_key
+    response = openai.ChatCompletion.create(
+        model='gpt-3.5-turbo',
+        messages=messages,
+    )
+
+    return response["choices"][0]['message']['content']
