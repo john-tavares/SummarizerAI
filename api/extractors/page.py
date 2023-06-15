@@ -9,7 +9,7 @@ def transcribe(url:str)->list:
     title = soup.title.text
     body = soup.body.text
     
-    prompt = {"role": "user", "content": "Leia o texto a página da Web e dê um resumo objetivo."}
+    prompt = {"role": "user", "content": "Leia o texto a página da Web e dê um resumo objetivo com até 300 palavras."}
     complement = {"role": "user", "content": f"Titulo da Página: {title}"}
     words = body.split()    
     text = ""
