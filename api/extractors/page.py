@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 import requests
-import api.libs.utils as utils
+import libs.utils as utils
 
 def transcribe(url:str)->list:
     response = requests.get(url)

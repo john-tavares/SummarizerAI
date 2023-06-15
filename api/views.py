@@ -2,6 +2,7 @@ from flask import request, Blueprint
 from api.extractors.audio import AudioExtractor
 import api.extractors.youtube as youtube_extractor
 import api.extractors.pdf as pdf_extractor
+import api.extractors.page as page_extractor
 import api.extractors.chat as chat_extractor
 import libs.gpt as gpt
 import libs.blip as blip
@@ -70,6 +71,23 @@ def pdf_summarize():
         blip.send_message(os.environ['BLIP_APIKEY'], status, contact, summary)
         return {"summary": summary,"status": status}
     
+    except Exception as e:
+        status = "false"
+        blip.send_message(os.environ['BLIP_APIKEY'], status, contact, "")
+        return {"summary": "","status": status}
+
+@api_bp.route('/page/summary', methods=['POST'])
+def page_summarize():
+    link = request.json['pageUrl']
+    contact = request.json['contactId']
+
+    try:
+        messages = page_extractor.process(link)
+        summary = gpt.summarize_pdf(os.environ['OPENAI_APIKEY'], messages)
+        status = "success"
+        blip.send_message(os.environ['BLIP_APIKEY'], status, contact, summary)
+        return {"summary": summary,"status": status}
+
     except Exception as e:
         status = "false"
         blip.send_message(os.environ['BLIP_APIKEY'], status, contact, "")
