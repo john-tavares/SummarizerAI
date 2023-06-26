@@ -10,7 +10,7 @@ import os
 import payments.views as payments
 import libs.utils as utils
 
-FREE_ACTIONS_LIMIT = 2
+FREE_ACTIONS_LIMIT = 10
 
 api_bp = Blueprint('api', __name__)
 
