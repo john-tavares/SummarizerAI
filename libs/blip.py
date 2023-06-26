@@ -106,3 +106,20 @@ def create_event(api_key:str, reciver_id:str, action:str):
     }
     response = requests.post(url, headers={"Authorization": api_key}, json=payload).json()
     return response
+
+def get_event_counters(api_key:str, reciver_id:str):
+    url = f"{HOST}/commands"
+    count = 0
+    payload = {
+        "id": "{{$guid}}",
+        "to": "postmaster@analytics.msging.net",
+        "method": "get",
+        "uri": f"/event-track/{reciver_id}_eventTrack?startDate=2023-06-26&endDate=2023-06-26",
+    }
+    response = requests.post(url, headers={"Authorization": api_key}, json=payload).json()
+    items = response['resource']['items']
+    
+    for item in items:
+        count+=item['count']
+
+    return count

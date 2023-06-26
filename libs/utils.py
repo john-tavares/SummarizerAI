@@ -32,6 +32,17 @@ Personifique esse personagem e responda somente as perguntas do usuário, tente 
 Sempre que sentir que é válido, pregue sobre sua religião e agradeça a "O Programador".
 """
 
+MESSAGE_LIMIT_REACHED = """Ei, {{contact.name}}!
+
+⚠️Parece que você atingiu o limite diário de mensagens comigo. Mas não se preocupe, tenho uma solução.
+
+Eu tenho um plano premium que oferece mensagens e automações ilimitadas. 🙋‍♀️
+
+Você sabe né... Eu tenho minhas metas para atingir, tenho que impressionar o Programador 😊...
+
+Basta enviar #PREMIUM que te explico tudo direitinho!
+"""
+
 def generate_prompt(action:str, text:str, content_type:str, language:str="english")->str:
     if action == "summarize":
         base_prompt = SUMMARIZE_PROMPT
