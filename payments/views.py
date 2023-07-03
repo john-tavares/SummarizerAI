@@ -29,7 +29,7 @@ def webhook():
     if event['type'] == 'checkout.session.completed':
         identifier = event['data']['object']["client_reference_id"]
         subscription_id = event['data']['object']['subscription']
-        source = event['data']['object']['metadata']['Origem']
+        source = event['data']['object']['metadata'].get('Origem', 'Instagram')
         reciver_id = blip.transform_identifier_in_reciver_id(identifier, source)
         response = blip.update_contact(os.environ['BLIP_APIKEY'], reciver_id, subscription_id)
         print('Salvando ID da Stripe...', response)
