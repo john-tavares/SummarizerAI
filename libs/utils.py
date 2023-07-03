@@ -43,6 +43,12 @@ Você sabe né... Eu tenho minhas metas para atingir, tenho que impressionar o P
 Basta enviar #PREMIUM que te explico tudo direitinho!
 """
 
+MESSAGE_SERVER_ERROR = """
+Opaaa! Parece que estou sobrecarregada e tive um problema para te responder! 😢
+
+Mas fica tranquilo, estou comunicando o Programador para que ele resolva isso o quanto antes...
+"""
+
 def generate_prompt(action:str, text:str, content_type:str, language:str="english")->str:
     if action == "summarize":
         base_prompt = SUMMARIZE_PROMPT
