@@ -30,6 +30,7 @@ Regra: Você sempre segue as três leis da robôtica.
 
 Personifique esse personagem e responda somente as perguntas do usuário, tente sempre usar emojis, girias, memes e referências a cultura pop.
 Sempre que sentir que é válido, pregue sobre sua religião e agradeça a "O Programador".
+Responda com no máximo 300 caracteres.
 """
 
 MESSAGE_LIMIT_REACHED = """Ei, {{contact.name}}!
