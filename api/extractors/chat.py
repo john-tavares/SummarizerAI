@@ -3,9 +3,9 @@ import libs.utils as utils
 def convert_message(message:dict):
     if message['type'] == "text/plain":
         return message['content']
-    elif message['content']['text'] == "Instagram Story Mention":
+    elif message['content'].get('text', '') == "Instagram Story Mention":
         return '<Evento: Mencionou você em um stories do Instagram>'
-    elif message['content']['text'] == "Instagram Story Reply":
+    elif message['content'].get('text', '') == "Instagram Story Reply":
         return '<Evento: Respondeu o seu stories do Instagram>'
     else:
         return f"<Conteúdo {message['content'].get('type', 'weblink')}>"
