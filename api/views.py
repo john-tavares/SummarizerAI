@@ -105,7 +105,8 @@ def chat_continue():
     if profile['payment_status'] == 'active' or profile['actions_counter'] <= FREE_ACTIONS_LIMIT:
         messages = blip.last_messages(os.environ['BLIP_APIKEY'], receiver_id)['resource']['items'][0:3]
         try:
-            gpt_messages = chat_extractor.transcribe(messages)
+            contact_info = blip.get_contact(os.environ['BLIP_APIKEY'], receiver_id)['resource']
+            gpt_messages = chat_extractor.transcribe(messages, contact_info)
             response = gpt.chat(os.environ['OPENAI_APIKEY'], gpt_messages)
             blip.create_event(os.environ['BLIP_APIKEY'], receiver_id, "chat")
         except:

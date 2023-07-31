@@ -6,14 +6,17 @@ def convert_message(message:dict):
     elif message['text'] == "Instagram Story Mention":
         return '<Evento: Mencionou você em um stories do Instagram>'
     elif message['text'] == "Instagram Story Reply":
-        return '<Evento: Respondeu seu próprio stories do Instagram>'
+        return '<Evento: Respondeu o seu stories do Instagram>'
     else:
         return f"<Conteúdo {message['content'].get('type', 'weblink')}>"
 
-def transcribe(messages:list):
+def convert_contact_info_in_message(contact):
+    return {"role": 'system', "content": f'Nome do Usuário: {contact.get("name", "Usuário")}'}
+
+def transcribe(messages:list, contact_info):
     messages.reverse()
     prompt_message = {"role": "system", "content": utils.PROMPT_CHAT}
-    gpt_messages = [prompt_message]
+    gpt_messages = [prompt_message, convert_contact_info_in_message(contact_info)]
     for message in messages:
         if message['direction'] == "sent":
             role = "assistant"
