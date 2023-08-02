@@ -5,7 +5,7 @@ def convert_message(message:dict):
         return message['content']
     elif message['content'].get('text', '') == "Instagram Story Mention":
         return '<Evento: Mencionou você em um stories do Instagram>'
-    elif message['content'].get('text', '') != '' and message['content'].get('type', '') == 'image/jpeg':
+    elif message['content'].get('text', '') != '' and message['content'].get('type', '') != 'text/plain':
         return f"<Evento: Respondeu o seu stories do Instagram com: '{message['content'].get('text', '')}'>"
     else:
         return f"<Conteúdo {message['content'].get('type', 'weblink')}>"
